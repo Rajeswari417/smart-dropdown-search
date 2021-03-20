@@ -1,43 +1,15 @@
-.dropdown-search{
-
+.form-control{
+  margin-top: 5px;
+  width: 25%;
 }
-
-  
-
-  .dropdown {
-    background: rgba(238, 238, 238, 1);
-    border: 1px solid rgba(238, 238, 238, 1);
-    border-radius: 4px;
-    color: rgba(0, 0, 0, 0.87);
-    cursor: pointer;
-    width: 100%;
-    position: relative;
-  }
-    .dropdown-button {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border: 1px solid rgba(238, 238, 238, 1);
-      border-radius: 4px;
-      padding: 2px 4px 2px 12px;
-    }
-      .dropdown-text {
-        font-size: 14px;
-        padding-right: 12px;
-        width: 100%;
-        white-space: nowrap;
-      }
-
-      .dropdown-arrow {
-        display: flex;
-      }
-    
-
-    .dropdown-menu {
-      display: none;
-      position: absolute;
-      font-size: 12px;
-      z-index: 1;
-      width: 100%;
-
-       }
+.dropdown-item{
+  width: 25%;
+}
+ul{
+  padding-left: 0%;
+}
+.text-more{
+  text-align: right;
+  font-size: 0.8rem;
+  float: right;
+}
