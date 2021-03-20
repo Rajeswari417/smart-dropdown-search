@@ -1,7 +1,12 @@
 <div class="user-component">
-    <h1>User Component</h1>
-    <div>
-        <span (click)="openDropDown()"> {{selectedCountry}}</span>
+    <h3 class="title-text">USER-PORTAL</h3>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" (click)="openDropDown()">
+            {{selectedCountry}}
+        </button>
+
     </div>
     <app-custom-dropdown 
       [countryList]="countryList"

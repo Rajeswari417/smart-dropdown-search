@@ -14,7 +14,7 @@ export class AdminComponent implements OnInit {
   searchResult = [];
   count = 3
   showDropDown = false
-  selectedCountry = 'Selected Country';
+  selectedCountry = 'Select Country';
 
 
   constructor(private countryService: CountryService) { }

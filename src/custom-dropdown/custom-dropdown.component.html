@@ -29,9 +29,9 @@
     </div>
   </ul> -->
   <ng-template #other_content>
-    <div *ngIf="searchResult.length==0 && searchInput.length!=0">"{{searchInput}}" not found...
-
-      <button *ngIf="privilege" (click)="addCountryToList()">Add & Select</button>
+    <div *ngIf="searchResult.length==0 && searchInput.length!=0" class="add-select">"{{searchInput}}" 
+      <span> not found...</span>
+      <button class="btn btn-secondary btn-sm" *ngIf="privilege" (click)="addCountryToList()">Add & Select</button>
     </div>
   </ng-template>
 </ng-container>
