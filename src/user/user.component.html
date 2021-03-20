@@ -1,4 +1,15 @@
-<div >
-    <h1>User DropDown</h1>
-    <app-custom-dropdown [privilege]="false"></app-custom-dropdown>
+<div class="user-component">
+    <h1>User Component</h1>
+    <div>
+        <span (click)="openDropDown()"> {{selectedCountry}}</span>
+    </div>
+    <app-custom-dropdown 
+      [countryList]="countryList"
+      [privilege]="false"
+      [noOfRecordsToShow]="count"
+      [isShow]="showDropDown"
+      [searchResult]="searchResult" 
+      (selectedCountry) = "setSeletedCountry($event)"
+      (keyPressed)="filterString($event)">
+    </app-custom-dropdown>
 </div>

@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, OnInit,Output,EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { CountryService } from '../country.service';
 
 @Component({
@@ -8,38 +8,26 @@ import { CountryService } from '../country.service';
   styleUrls: ['./custom-dropdown.component.scss']
 })
 export class CustomDropdownComponent implements OnInit {
-  state =  {
-    open: false,
-    countriesList: [],
-    filteredList: [],
-    searchVal: "",
-    newCountryVal: "",
-    loadMoreCount: 0,
-    privilege: false
-  }
+
+  //CustomDropDown Properties
   isOpenDropdown = false;
-
-
-  @Input() privilege = false;
-  public searchInput='';
-   
-  @Input() noOfRecordsToShow = 1 ;
-  private limit
+  public searchInput = '';
+  limit = 0
   emptySearchString = true;
-  displayall = false
-
- @Input() countryList: Array<any> = []
- @Input() searchResult: Array<any> = [];
- @Input() isShow = false;
- @Output() keyPressed = new EventEmitter<any>();
- @Output() addCountry = new EventEmitter<any>();
+  displayall = false;
   errorMessage = '';
+  @Input() noOfRecordsToShow = 1;
+  @Input() privilege = false;
+  @Input() countryList: Array<any> = []
+  @Input() searchResult: Array<any> = [];
+  @Input() isShow = false;
+  @Output() keyPressed = new EventEmitter<any>();
+  @Output() addCountry = new EventEmitter<any>();
+  @Output() selectedCountry = new EventEmitter<String>();
 
 
-  constructor(private countryService: CountryService,
 
-
-  ) { }
+  constructor(private countryService: CountryService) { }
   ngOnInit() {
     //   this.http.get<any>('http://localhost:3000/listcountries').subscribe({
     //     next: response => {
@@ -50,26 +38,21 @@ export class CustomDropdownComponent implements OnInit {
     //         console.error('There was an error!', error);
     //     }
     // })
- //   this.doGet();
- this.limit = this.noOfRecordsToShow
- console.log("count",this.limit);
- console.log('list',this.searchResult);
- 
+    //   this.doGet();
+    this.limit = this.noOfRecordsToShow
   }
 
+  //Custome DropDown Methods
 
-
-  openist(){
+  openist() {
     this.isOpenDropdown = !this.isOpenDropdown
   }
- 
 
-  
   fetchSeries(event: any) {
-      this.keyPressed.emit(this.searchInput);
-    }
+    this.keyPressed.emit(this.searchInput);
+  }
 
-  addCountryToList(){
+  addCountryToList() {
     this.addCountry.emit(true);
   }
 
@@ -82,5 +65,8 @@ export class CustomDropdownComponent implements OnInit {
       this.limit = this.noOfRecordsToShow
 
     }
+  }
+  setSelectedCountry(country: string) {
+    this.selectedCountry.emit(country)
   }
 }

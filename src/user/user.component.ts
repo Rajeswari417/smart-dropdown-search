@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CountryService } from 'src/country.service';
 
 @Component({
   selector: 'app-user',
@@ -6,10 +7,44 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-
-  constructor() { }
+  searchInput = ''
+  countryList = [];
+  searchResult = [];
+  count = 3
+  showDropDown = false
+  selectedCountry = 'Selected Country';
+  constructor(private countryService: CountryService) { }
 
   ngOnInit(): void {
+    this.doGet();
   }
 
+   //NetWork Call
+  //GET Requesting Method For CountryList
+  doGet() {
+    this.countryService.GETRequest().subscribe(res => {
+      if (res)
+        localStorage.setItem('countryList', JSON.stringify(res.data));
+
+      this.countryList = JSON.parse(localStorage.getItem('countryList'))
+       this.searchResult = this.countryList
+    })
+  }
+  openDropDown() {
+    this.showDropDown = !this.showDropDown;
+  }
+
+  filterString(value: any) {
+    console.log(value)
+    this.searchInput = value
+    this.searchResult = this.countryList.filter((series) => {
+      return series.name.toLowerCase().startsWith(value.toLowerCase());
+    })
+    return this.searchResult;
+  }
+  
+  setSeletedCountry(event: any){
+    this.selectedCountry = event
+    this.showDropDown = false
+  }
 }

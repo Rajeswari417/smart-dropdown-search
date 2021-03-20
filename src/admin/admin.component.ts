@@ -7,6 +7,8 @@ import { CountryService } from 'src/country.service';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
+
+  //Admin Component Properties
   searchInput = ''
   countryList = [];
   searchResult = [];
@@ -16,15 +18,12 @@ export class AdminComponent implements OnInit {
 
 
   constructor(private countryService: CountryService) { }
-  ngOnInit() { 
-    this.doGet();
-  }
+
+  ngOnInit() {  this.doGet();}
 
 
-  openDropDown() {
-    this.showDropDown = !this.showDropDown;
-  }
-  //Get CountryList
+  //NetWork Calls
+  //GET Requesting Method For CountryList
   doGet() {
     this.countryService.GETRequest().subscribe(res => {
       if (res)
@@ -35,25 +34,30 @@ export class AdminComponent implements OnInit {
     })
   }
 
-  //add country to the list
+  //POST Requesting Method For add country to the list
   addCountry(value: boolean) {
-    if(value && this.searchInput)
+    if(value)
     this.countryService.POSTRequest(this.searchInput).subscribe(res => console.log(res.message))
+    this.searchInput = '';
     this.doGet();
   }
 
-  
+  openDropDown() {
+    this.showDropDown = !this.showDropDown;
+  }
 
   filterString(value: any) {
     console.log(value)
-    if (value === '') {
-         //this.emptySearchString = true;
-      return this.searchResult = [];
-    }
-    // this.emptySearchString = false;
+    this.searchInput = value
     this.searchResult = this.countryList.filter((series) => {
       return series.name.toLowerCase().startsWith(value.toLowerCase());
     })
     return this.searchResult;
   }
+
+  setSeletedCountry(event: any){
+    this.selectedCountry = event
+    this.showDropDown = false
+  }
 }
+
