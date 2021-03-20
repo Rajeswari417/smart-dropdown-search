@@ -32,6 +32,7 @@ export class UserComponent implements OnInit {
   }
   openDropDown() {
     this.showDropDown = !this.showDropDown;
+    this.filterString('')
   }
 
   filterString(value: any) {

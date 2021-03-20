@@ -11,7 +11,7 @@ export class CustomDropdownComponent implements OnInit {
 
   //CustomDropDown Properties
   isOpenDropdown = false;
-  public searchInput = '';
+  @Input() searchInput = '';
   limit = 0
   emptySearchString = true;
   displayall = false;
@@ -21,7 +21,7 @@ export class CustomDropdownComponent implements OnInit {
   @Input() countryList: Array<any> = []
   @Input() searchResult: Array<any> = [];
   @Input() isShow = false;
-  @Output() keyPressed = new EventEmitter<any>();
+  @Output() OnChangeListner = new EventEmitter<any>();
   @Output() addCountry = new EventEmitter<any>();
   @Output() selectedCountry = new EventEmitter<String>();
 
@@ -49,24 +49,29 @@ export class CustomDropdownComponent implements OnInit {
   }
 
   fetchSeries(event: any) {
-    this.keyPressed.emit(this.searchInput);
+    this.OnChangeListner.emit(this.searchInput);
   }
 
   addCountryToList() {
     this.addCountry.emit(true);
   }
 
-  displyFullList() {
-    this.displayall = !this.displayall;
-    if (this.displayall) {
-      this.limit = this.searchResult.length;
 
-    } else {
-      this.limit = this.noOfRecordsToShow
-
+  setSelectedCountry(event: any) {
+    const val = event.target.id
+    if (event.target.id == "item") {
+      this.selectedCountry.emit(event.target.innerText)
+      this.isOpenDropdown = false
     }
-  }
-  setSelectedCountry(country: string) {
-    this.selectedCountry.emit(country)
+    if (event.target.id == "more-text") {
+      this.displayall = !this.displayall;
+      if (this.displayall) {
+        this.limit = this.searchResult.length;
+      } else {
+        this.limit = this.noOfRecordsToShow
+
+      }
+    }
+
   }
 }

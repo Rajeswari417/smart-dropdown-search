@@ -19,7 +19,7 @@ export class AdminComponent implements OnInit {
 
   constructor(private countryService: CountryService) { }
 
-  ngOnInit() {  this.doGet();}
+  ngOnInit() { this.doGet(); }
 
 
   //NetWork Calls
@@ -30,20 +30,29 @@ export class AdminComponent implements OnInit {
         localStorage.setItem('countryList', JSON.stringify(res.data));
 
       this.countryList = JSON.parse(localStorage.getItem('countryList'))
-       this.searchResult = this.countryList
+      this.searchResult = this.countryList
     })
   }
 
   //POST Requesting Method For add country to the list
   addCountry(value: boolean) {
-    if(value)
-    this.countryService.POSTRequest(this.searchInput).subscribe(res => console.log(res.message))
-    this.searchInput = '';
-    this.doGet();
+    if (value)
+      this.countryService.POSTRequest(this.searchInput).subscribe(
+        res => {
+          if (res.message == "success") {
+            this.searchInput = '';
+            this.showDropDown = false;
+            this.selectedCountry = res.data.name
+            this.filterString('');
+          }
+        })
+
+
   }
 
   openDropDown() {
     this.showDropDown = !this.showDropDown;
+    this.filterString('')
   }
 
   filterString(value: any) {
@@ -55,7 +64,7 @@ export class AdminComponent implements OnInit {
     return this.searchResult;
   }
 
-  setSeletedCountry(event: any){
+  setSeletedCountry(event: any) {
     this.selectedCountry = event
     this.showDropDown = false
   }

@@ -7,8 +7,8 @@
     <!-- <input type="text" placeholder="Search..." [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" /> -->
     <ul *ngIf="searchResult.length ;else other_content">
       <div *ngFor="let show of searchResult | slice:0:limit; let i = index">
-        <li class="dropdown-item"> {{show.name}}
-          <span *ngIf="i==(limit-1) && isShow" (click)="displyFullList()" class="text-more">
+        <li  id ="item"(click)= "setSelectedCountry($event)"class="dropdown-item"> {{show.name}}
+          <span id = "more-text" *ngIf="i==(limit-1) && isShow && limit != searchResult.length"  class="text-more">
             {{searchResult.length-limit}} more...
           </span>
         </li>
