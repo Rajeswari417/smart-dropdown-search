@@ -23,13 +23,16 @@ export class CustomDropdownComponent implements OnInit {
   @Input() privilege = false;
   public searchInput='';
    
-  @Input() limit = 2;
+  @Input() noOfRecordsToShow = 1 ;
+  private limit
   emptySearchString = true;
+  displayall = false
 
  @Input() countryList: Array<any> = []
  @Input() searchResult: Array<any> = [];
  @Input() isShow = false;
  @Output() keyPressed = new EventEmitter<any>();
+ @Output() addCountry = new EventEmitter<any>();
   errorMessage = '';
 
 
@@ -48,6 +51,10 @@ export class CustomDropdownComponent implements OnInit {
     //     }
     // })
  //   this.doGet();
+ this.limit = this.noOfRecordsToShow
+ console.log("count",this.limit);
+ console.log('list',this.searchResult);
+ 
   }
 
 
@@ -62,15 +69,17 @@ export class CustomDropdownComponent implements OnInit {
       this.keyPressed.emit(this.searchInput);
     }
 
-  addCountry(){}
+  addCountryToList(){
+    this.addCountry.emit(true);
+  }
 
   displyFullList() {
-    this.isShow = !this.isShow;
-    if (this.isShow) {
+    this.displayall = !this.displayall;
+    if (this.displayall) {
       this.limit = this.searchResult.length;
 
     } else {
-      this.limit = 2
+      this.limit = this.noOfRecordsToShow
 
     }
   }

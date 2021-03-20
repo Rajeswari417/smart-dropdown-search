@@ -10,7 +10,7 @@ export class AdminComponent implements OnInit {
   searchInput = ''
   countryList = [];
   searchResult = [];
-  count = 2
+  count = 3
   showDropDown = false
   selectedCountry = 'Selected Country';
 
@@ -36,8 +36,8 @@ export class AdminComponent implements OnInit {
   }
 
   //add country to the list
-  addCountry() {
-    console.log(this.searchInput);
+  addCountry(value: boolean) {
+    if(value && this.searchInput)
     this.countryService.POSTRequest(this.searchInput).subscribe(res => console.log(res.message))
     this.doGet();
   }

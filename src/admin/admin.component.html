@@ -6,11 +6,12 @@
       </div>
 <app-custom-dropdown 
 [countryList]="countryList"
-[privilege] = "false"
-limit= "count"
+[privilege] = "true"
+[noOfRecordsToShow]= "count"
 [isShow] = "showDropDown"
 [searchResult] = "searchResult"
 (keyPressed) ="filterString($event)"
+(addCountry)= "addCountry($event)"
 >
 
 </app-custom-dropdown>
