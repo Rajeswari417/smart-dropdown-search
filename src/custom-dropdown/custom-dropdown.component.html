@@ -1,5 +1,21 @@
+
+  
 <ng-container *ngIf="isShow">
-  <div class="dropdown row col-6">
+
+  <input type="text" class="form-control" aria-label="default" aria-describedby="inputGroup-sizing-sm"
+      placeholder="Search..." [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" >
+    <!-- <input type="text" placeholder="Search..." [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" /> -->
+    <ul *ngIf="searchResult.length ;else other_content">
+      <div *ngFor="let show of searchResult | slice:0:limit; let i = index">
+        <li class="dropdown-item"> {{show.name}}
+          <span *ngIf="i==(limit-1) && isShow" (click)="displyFullList()" class="text-more">
+            {{searchResult.length-limit}} more...
+          </span>
+        </li>
+      </div>
+    </ul>
+
+  <!-- <div class="dropdown row col-6">
     <input type="text" placeholder="Search..." [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" />
   </div>
 
@@ -11,7 +27,7 @@
         </span>
       </li>
     </div>
-  </ul>
+  </ul> -->
   <ng-template #other_content>
     <div *ngIf="searchResult.length==0 && searchInput.length!=0">"{{searchInput}}" not found...
 

@@ -1,17 +1,24 @@
 <div class="admin-component">
-    <h1>Admin Component</h1>
-    <div>
-        <span (click)="openDropDown()"> {{selectedCountry}}</span>
+    <h3 class="title-text">ADMIN-PORTAL</h3>
+
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" (click)="openDropDown()">
+            {{selectedCountry}}
+        </button>
+
     </div>
+    <!-- <div>
+          <span (click)="openDropDown()"> {{selectedCountry}}</span>
+      </div> -->
     <app-custom-dropdown 
-      [countryList]="countryList"
-      [privilege]="true"
-      [noOfRecordsToShow]="count"
-      [isShow]="showDropDown"
-      [searchResult]="searchResult" 
-      (keyPressed)="filterString($event)"
-      (selectedCountry) = "setSeletedCountry($event)"
-      (addCountry)="addCountry($event)">
+    [countryList]="countryList" 
+    [privilege]="true"
+     [noOfRecordsToShow]="count"
+     [isShow]="showDropDown"
+     [searchResult]="searchResult" 
+    (keyPressed)="filterString($event)"
+    (selectedCountry)="setSeletedCountry($event)" (addCountry)="addCountry($event)">
 
     </app-custom-dropdown>
 </div>
