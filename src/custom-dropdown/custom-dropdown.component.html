@@ -13,7 +13,7 @@
     </div>
   </ul>
   <ng-template #other_content>
-    <div *ngIf="searchResult.length==0">"{{searchInput}}" not found...
+    <div *ngIf="searchResult.length==0 && searchInput.length!=0">"{{searchInput}}" not found...
 
       <button *ngIf="privilege" (click)="addCountryToList()">Add & Select</button>
     </div>
