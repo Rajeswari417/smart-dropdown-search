@@ -1,0 +1,24 @@
+<ng-container *ngIf= "isShow">
+  <div class="dropdown row col-6">
+      <input type="text" placeholder="Search..." [(ngModel)]="searchInput" (keyup)="fetchSeries($event)"
+      />
+    </div>
+  
+  <ul *ngIf="searchResult.length ;else other_content">
+    <div *ngFor="let show of searchResult; let i = index">
+      <li class="dropdown-item" *ngIf="i<limit"> {{show.name}}
+        <span *ngIf="i==(limit-1) && isShow"  (click)="displyFullList()">
+          more...
+        </span>
+      </li>
+    </div>
+  </ul>
+  <ng-template #other_content>
+    <div *ngIf="!emptySearchString">"{{searchInput}}" not found...
+  
+        <button  *ngIf = "privilege"(click)="addCountry()" >Add & Select</button>
+     
+     
+    </div>
+  </ng-template>
+</ng-container>

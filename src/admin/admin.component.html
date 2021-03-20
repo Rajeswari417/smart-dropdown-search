@@ -1,0 +1,17 @@
+
+  <div class="admin-component">
+      <h1>Admin Component</h1>
+      <div>
+          <span (click)="openDropDown()"> {{selectedCountry}}</span>
+      </div>
+<app-custom-dropdown 
+[countryList]="countryList"
+[privilege] = "false"
+limit= "count"
+[isShow] = "showDropDown"
+[searchResult] = "searchResult"
+(keyPressed) ="filterString($event)"
+>
+
+</app-custom-dropdown>
+  </div>
