@@ -4,30 +4,15 @@
 
   <input type="text" class="form-control" aria-label="default" aria-describedby="inputGroup-sizing-sm"
       placeholder="Search..." [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" >
-    <!-- <input type="text" placeholder="Search..." [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" /> -->
     <ul *ngIf="searchResult.length ;else other_content">
-      <div *ngFor="let show of searchResult | slice:0:limit; let i = index">
+      <div *ngFor="let show of searchResult | slice:0:noOfRecordsToShow; let i = index">
         <li  id ="item"(click)= "setSelectedCountry($event)"class="dropdown-item"> {{show.name}}
-          <span id = "more-text" *ngIf="i==(limit-1) && isShow && limit != searchResult.length"  class="text-more">
-            {{searchResult.length-limit}} more...
+          <span id = "more-text" *ngIf="i==(noOfRecordsToShow-1) && noOfRecordsToShow != searchResult.length"  class="text-more">
+            {{searchResult.length-noOfRecordsToShow}} more...
           </span>
         </li>
       </div>
     </ul>
-
-  <!-- <div class="dropdown row col-6">
-    <input type="text" placeholder="Search..." [(ngModel)]="searchInput" (keyup)="fetchSeries($event)" />
-  </div>
-
-  <ul *ngIf="searchResult.length ;else other_content">
-    <div *ngFor="let show of searchResult | slice:0:limit; let i = index">
-      <li class="dropdown-item" (click) = "setSelectedCountry(show.name)"> {{show.name}}
-        <span *ngIf="i==(limit-1) && isShow" (click)="displyFullList()">
-          {{searchResult.length-limit}} more...
-        </span>
-      </li>
-    </div>
-  </ul> -->
   <ng-template #other_content>
     <div *ngIf="searchResult.length==0 && searchInput.length!=0" class="add-select">"{{searchInput}}" 
       <span> not found...</span>

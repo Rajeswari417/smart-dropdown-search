@@ -14,9 +14,9 @@ export class CustomDropdownComponent implements OnInit {
   @Input() searchInput = '';
   limit = 0
   emptySearchString = true;
-  displayall = false;
   errorMessage = '';
-  @Input() noOfRecordsToShow = 1;
+  displayall= false;
+  @Input() noOfRecordsToShow = 3;
   @Input() privilege = false;
   @Input() countryList: Array<any> = []
   @Input() searchResult: Array<any> = [];
@@ -27,26 +27,18 @@ export class CustomDropdownComponent implements OnInit {
 
 
 
-  constructor(private countryService: CountryService) { }
+  constructor(private countryService: CountryService) {
+    this.countryService.getListCountry().subscribe(length => {
+      if(this.displayall)
+      this.noOfRecordsToShow = length;
+    });
+  }
   ngOnInit() {
-    //   this.http.get<any>('http://localhost:3000/listcountries').subscribe({
-    //     next: response => {
-    //         this.countryList = response.data;
-    //     },
-    //     error: error => {
-    //         this.errorMessage = error.message;
-    //         console.error('There was an error!', error);
-    //     }
-    // })
-    //   this.doGet();
     this.limit = this.noOfRecordsToShow
   }
 
   //Custome DropDown Methods
 
-  openist() {
-    this.isOpenDropdown = !this.isOpenDropdown
-  }
 
   fetchSeries(event: any) {
     this.OnChangeListner.emit(this.searchInput);
@@ -64,14 +56,8 @@ export class CustomDropdownComponent implements OnInit {
       this.isOpenDropdown = false
     }
     if (event.target.id == "more-text") {
-      this.displayall = !this.displayall;
-      if (this.displayall) {
-        this.limit = this.searchResult.length;
-      } else {
-        this.limit = this.noOfRecordsToShow
-
+      this.displayall= true;
+        this.noOfRecordsToShow = this.searchResult.length;
+      } 
       }
-    }
-
-  }
 }

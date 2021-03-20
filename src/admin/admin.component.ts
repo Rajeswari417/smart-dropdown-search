@@ -10,11 +10,11 @@ export class AdminComponent implements OnInit {
 
   //Admin Component Properties
   searchInput = ''
-  countryList = [];
-  searchResult = [];
+  countryList = []
+  searchResult = []
   count = 3
   showDropDown = false
-  selectedCountry = 'Select Country';
+  selectedCountry = 'Select Country'
 
 
   constructor(private countryService: CountryService) { }
@@ -26,12 +26,18 @@ export class AdminComponent implements OnInit {
   //GET Requesting Method For CountryList
   doGet() {
     this.countryService.GETRequest().subscribe(res => {
-      if (res)
+      if (res){
         localStorage.setItem('countryList', JSON.stringify(res.data));
-
-      this.countryList = JSON.parse(localStorage.getItem('countryList'))
-      this.searchResult = this.countryList
+        this.countryList = res.data;
+        this.countryService.setListCount(this.countryList.length);
+      }
+      error => {
+                console.error('There was an error!', error);
+                this.countryList = JSON.parse(localStorage.getItem('countryList'))
+            }  
     })
+    this.searchResult = this.countryList
+
   }
 
   //POST Requesting Method For add country to the list
@@ -43,6 +49,7 @@ export class AdminComponent implements OnInit {
             this.showDropDown = false;
             this.selectedCountry = res.data.name
             this.filterString('');
+            this.doGet();
           }
         })
 

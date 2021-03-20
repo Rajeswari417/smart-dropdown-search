@@ -13,22 +13,28 @@ export class UserComponent implements OnInit {
   count = 3
   showDropDown = false
   selectedCountry = 'Select Country';
-  constructor(private countryService: CountryService) { }
+  constructor(private countryService: CountryService) {
+   }
 
   ngOnInit(): void {
     this.doGet();
   }
 
-   //NetWork Call
-  //GET Requesting Method For CountryList
-  doGet() {
+   //User Component Methods
+   doGet() {
     this.countryService.GETRequest().subscribe(res => {
-      if (res)
+      if (res){
         localStorage.setItem('countryList', JSON.stringify(res.data));
-
-      this.countryList = JSON.parse(localStorage.getItem('countryList'))
-       this.searchResult = this.countryList
+        this.countryList = res.data;
+        this.countryService.setListCount(this.countryList.length);
+      }
+      error => {
+                console.error('There was an error!', error);
+                this.countryList = JSON.parse(localStorage.getItem('countryList'))
+            }  
     })
+    this.searchResult = this.countryList
+
   }
   openDropDown() {
     this.showDropDown = !this.showDropDown;
