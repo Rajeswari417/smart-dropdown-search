@@ -40,7 +40,6 @@ export class AdminComponent implements OnInit {
       this.countryService.POSTRequest(this.searchInput).subscribe(
         res => {
           if (res.message == "success") {
-            this.searchInput = '';
             this.showDropDown = false;
             this.selectedCountry = res.data.name
             this.filterString('');
